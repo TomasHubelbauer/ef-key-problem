@@ -40,7 +40,7 @@ namespace ef_key_problem
             app.UseMvc();
 
             // Test with `dotnet run` and go to `/api/values` to check data
-            var scenario = 1;
+            var scenario = 3;
             switch (scenario) {
                 case 1: {
                     // SCENARIO 1: Adding only with dynamic keys:
@@ -48,6 +48,8 @@ namespace ef_key_problem
                     context.SaveChanges();
                     context.Todos.Add(new Todo() { Name = "Seconds" });
                     context.SaveChanges();
+                    // This successfully assigns keys 1 and 2 because `Id`
+                    // is recognized as a primary-key by EF convention.
                     break;
                 }
 
@@ -57,6 +59,8 @@ namespace ef_key_problem
                     context.SaveChanges();
                     context.Todos.Add(new Todo() { Id = 2, Name = "Seconds" });
                     context.SaveChanges();
+                    // This works okay - but if I were to add an item without an `Id`
+                    // next it would fail - see scenario 3.
                     break;
                 }
 
@@ -66,6 +70,7 @@ namespace ef_key_problem
                     context.SaveChanges();
                     context.Todos.Add(new Todo() { Name = "Seconds" });
                     context.SaveChanges();
+                    // This fails before even launching.
                     break;
                 }
             }
