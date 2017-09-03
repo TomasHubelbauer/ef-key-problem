@@ -9,11 +9,17 @@ namespace ef_key_problem.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private EfKeyContext _context;
+
+        public ValuesController(EfKeyContext context) {
+            _context = context;
+        }
+
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            return new string[] { "value1", "value2" };
+            return string.Join(Environment.NewLine, _context.Todos.Select(todo => $"{todo.Id} {todo.Name}"));
         }
 
         // GET api/values/5
