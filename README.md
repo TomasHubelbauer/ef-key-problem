@@ -43,3 +43,5 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 # Set up the DB context and entity model classes
 dotnet run
 ```
+
+## To-Do
